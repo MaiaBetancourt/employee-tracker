@@ -166,3 +166,24 @@ const addRole = function () {
     });
 };
 
+const updateEmployee = function () {
+  connection.query("SELECT * FROM department", function (err, departments) {
+    if (err) throw err;
+    console.table(departments);
+    inquirer
+      .prompt([
+        {
+          name: "department",
+          type: "list",
+          message: "What department would you like to update?",
+          choices: departments.map((department) => ({
+            name: department.name,
+            value: department.id,
+          })),
+        },
+      ])
+      .then(function (response) {
+        console.log(response);
+      });
+  });
+};
